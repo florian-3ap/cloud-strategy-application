@@ -18,6 +18,8 @@
 
   <properties>
     <java.version>18</java.version>
+    <docker.image.tag>${project.version}-latest</docker.image.tag>
+    <docker.image.full.path>docker.io/mandlon/${project.artifactId}</docker.image.full.path>
   </properties>
 
   <dependencies>
@@ -93,7 +95,7 @@
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
               <image>
-                <name>docker.io/mandlon/${project.artifactId}:${project.version}</name>
+                <name>${docker.image.full.path}:${docker.image.tag}</name>
               </image>
             </configuration>
             <executions>
