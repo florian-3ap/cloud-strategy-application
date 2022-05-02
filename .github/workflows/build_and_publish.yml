@@ -7,6 +7,7 @@ concurrency:
 
 env:
   FE_IMAGE: docker.io/mandlon/show-case-ui
+  BE_IMAGE: docker.io/mandlon/person-management-service
 
 jobs:
   build-publish-frontend:
@@ -63,4 +64,7 @@ jobs:
               -PbuildDocker \
               -DskipTests \
               -Ddocker.image.tag=$DOCKER_TAG
+        working-directory: ${{env.working-directory}}
+      - name: Publish Person Management Service
+        run: docker push $BE_IMAGE:$DOCKER_TAG
         working-directory: ${{env.working-directory}}
