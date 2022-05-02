@@ -27,3 +27,6 @@ jobs:
       - name: Build Image
         run: docker build --tag "$IMAGE:$DOCKER_TAG" .
         working-directory: ${{env.working-directory}}
+      - name: Publish Image
+        run: docker push "$IMAGE:$DOCKER_TAG"
+        working-directory: ${{env.working-directory}}
