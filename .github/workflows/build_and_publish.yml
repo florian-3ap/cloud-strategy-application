@@ -20,7 +20,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Determine Docker Tag
         run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-${{ github.run_number }}-$GITHUB_SHA"  >> $GITHUB_ENV
         working-directory: ${{env.working-directory}}
