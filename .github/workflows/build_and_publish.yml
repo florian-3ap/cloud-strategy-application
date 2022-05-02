@@ -1,6 +1,9 @@
 name: Build and Publish
 
-on: [ pull_request ]
+on:
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ci-bp-${{ github.ref }}
@@ -59,11 +62,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build
-        run: |-
-          mvn  package \
-              -PbuildDocker \
-              -DskipTests \
-              -Ddocker.image.tag=$DOCKER_TAG
+        run: mvn package -PbuildDocker -DskipTests -Ddocker.image.tag=$DOCKER_TAG
         working-directory: ${{env.working-directory}}
       - name: Publish Person Management Service
         run: docker push $BE_IMAGE:$DOCKER_TAG
