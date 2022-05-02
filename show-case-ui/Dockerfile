@@ -5,12 +5,11 @@ COPY . /app
 
 RUN cat /app/.env.template | grep = | sort | sed -e 's|REACT_APP_\([a-zA-Z0-9_]*\)=\(.*\)|REACT_APP_\1=NGINX_REPLACE_\1|' > /app/.env.local
 
-# Remove NPM's package-lock since we use yarn (and yarn has it's own yarn-lock)
 RUN [ -f ./package-lock.json ] && rm ./package-lock.json || echo "No package-lock.json found. Nothing to do."
 
 # Check if a build is already present, and create one if not
 RUN [ -d "./build" ] && echo "Project already built" \
-    || ( yarn install --frozen-lockfile && yarn run build )
+    || ( npm install --frozen-lockfile && npm run build )
 
 FROM nginx:alpine
 

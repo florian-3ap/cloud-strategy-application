@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback } from "react";
 import { PersonManagementApi } from "../api/person-management.api";
 import { useQuery } from "react-query";
 
