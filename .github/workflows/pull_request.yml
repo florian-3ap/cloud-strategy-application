@@ -9,17 +9,21 @@ concurrency:
 jobs:
   build-and-test-frontend:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./show-case-ui
+    env:
+      working-directory: ./show-case-ui
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: 14
           cache: 'npm'
       - run: npm install
+        working-directory: ${{env.working-directory}}
       - run: npm run check-formatting
+        working-directory: ${{env.working-directory}}
       - run: npm run build
+        working-directory: ${{env.working-directory}}
