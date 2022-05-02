@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Determine Docker Tag
-        run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-$GITHUB_SHA"  >> $GITHUB_ENV
+        run: echo "DOCKER_TAG=$(mvn -f pom.xml org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout)-$GITHUB_SHA" >> $GITHUB_ENV
         working-directory: ${{env.working-directory}}
       - name: Cache local Maven repository
         uses: actions/cache@v3
