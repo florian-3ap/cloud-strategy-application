@@ -26,7 +26,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Determine Docker Tag
-        run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-${{ github.run_number }}-$GITHUB_SHA"  >> $GITHUB_ENV
+        run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-$GITHUB_SHA"  >> $GITHUB_ENV
         working-directory: ${{env.working-directory}}
       - name: Build Image
         run: docker build --tag "$FE_IMAGE:$DOCKER_TAG" .
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Determine Docker Tag
-        run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-${{ github.run_number }}-$GITHUB_SHA"  >> $GITHUB_ENV
+        run: echo "DOCKER_TAG=$(node -e "console.log(require('./package.json').version);")-$GITHUB_SHA"  >> $GITHUB_ENV
         working-directory: ${{env.working-directory}}
       - name: Cache local Maven repository
         uses: actions/cache@v3
@@ -64,6 +64,6 @@ jobs:
       - name: Build Image
         run: mvn package -PbuildDocker -DskipTests -Ddocker.image.tag=$DOCKER_TAG
         working-directory: ${{env.working-directory}}
-      - name: Publish Person Management Service
+      - name: Publish Image
         run: docker push "$BE_IMAGE:$DOCKER_TAG"
         working-directory: ${{env.working-directory}}
