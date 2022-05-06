@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+    context-path: /${spring.application.name}
   shutdown: graceful
 
 spring:
@@ -9,6 +11,7 @@ spring:
     url: ${DB_JDBC_URL:jdbc:postgresql://localhost:5432/person-management}
     username: ${DB_USERNAME:admin}
     password: ${DB_PASSWORD:admin}
+
 management:
   endpoints:
     web:

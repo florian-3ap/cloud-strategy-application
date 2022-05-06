@@ -13,12 +13,11 @@ RUN [ -d "./build" ] && echo "Project already built" \
 
 FROM nginx:alpine
 
+ENV PORT 3000
+
 RUN apk update && apk add bash
 
 COPY nginx.conf /etc/nginx/conf.d/configfile.template
-
-ENV PORT 3000
-
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY .env.template /
 
@@ -28,5 +27,7 @@ COPY nginx-entrypoint.sh /
 COPY generate-env-file.sh /
 
 RUN chmod +x generate-env-file.sh
+RUN find /usr/share/nginx/html/ -type d -print0 | xargs -0 chmod 755
+RUN find /usr/share/nginx/html/ -type f -print0 | xargs -0 chmod 744
 
 ENTRYPOINT [ "sh", "/nginx-entrypoint.sh" ]
