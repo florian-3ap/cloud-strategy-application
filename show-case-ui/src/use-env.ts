@@ -1,9 +1,5 @@
 type EnvKey = "REACT_APP_BASE_URL";
 
-export const useEnv = () => {
-  return env;
-};
-
 export const env =
   process.env.NODE_ENV === "development"
     ? Object.keys(process.env).reduce((acc, curr) => {
